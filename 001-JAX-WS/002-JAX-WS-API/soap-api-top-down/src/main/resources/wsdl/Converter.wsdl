@@ -1,0 +1,86 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://topdown.soap.la/"
+             targetNamespace="http://topdown.soap.la/"
+             name="ConvertorService">
+
+    <types>
+        <xs:schema targetNamespace="http://topdown.soap.la/" elementFormDefault="qualified">
+            <xs:element name="binaryToDecimalRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="binary" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="binaryToDecimalResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="decimalToBinaryRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="decimal" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="decimalToBinaryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </types>
+
+    <message name="BinaryToDecimalRequest">
+        <part name="parameters" element="tns:binaryToDecimalRequest"/>
+    </message>
+    <message name="BinaryToDecimalResponse">
+        <part name="parameters" element="tns:binaryToDecimalResponse"/>
+    </message>
+
+    <message name="DecimalToBinaryRequest">
+        <part name="parameters" element="tns:decimalToBinaryRequest"/>
+    </message>
+    <message name="DecimalToBinaryResponse">
+        <part name="parameters" element="tns:decimalToBinaryResponse"/>
+    </message>
+
+    <portType name="ConvertorPortType">
+        <operation name="binaryToDecimal">
+            <input message="tns:BinaryToDecimalRequest"/>
+            <output message="tns:BinaryToDecimalResponse"/>
+        </operation>
+        <operation name="decimalToBinary">
+            <input message="tns:DecimalToBinaryRequest"/>
+            <output message="tns:DecimalToBinaryResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="ConvertorBinding" type="tns:ConvertorPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="binaryToDecimal">
+            <soap:operation soapAction="binaryToDecimal"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="decimalToBinary">
+            <soap:operation soapAction="decimalToBinary"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+    </binding>
+
+    <service name="ConvertorService">
+        <port name="ConvertorPort" binding="tns:ConvertorBinding">
+            <soap:address location="http://localhost:8080/api-soap-top-down/convertor"/>
+        </port>
+    </service>
+</definitions>

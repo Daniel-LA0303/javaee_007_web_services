@@ -1,0 +1,13 @@
+<jaxws:bindings
+    xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    jaxws:version="3.0">
+
+  <jaxws:bindings node="//wsdl:definitions">
+    <jaxb:globalBindings>
+      <jaxb:javaType name="java.lang.String" xmlType="xsd:string" />
+    </jaxb:globalBindings>
+  </jaxws:bindings>
+
+</jaxws:bindings>
